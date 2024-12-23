@@ -1,0 +1,916 @@
+schemaVersion: 3
+meta:
+  sourceVersionId: a2bb5189-f97a-4855-850b-b65daa160eb6 # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
+  description: null
+  projectId: dee30a98-a904-44d3-88e1-da7fd32af0d3 # DO NOT CHANGE - Unique ID of the project from which this file was generated
+  title: "L. Elaine Dazzio BSE Chapter 10: Project #2 Subscription Cancelation Analysis"
+  timezone: null
+  appTheme: SYS_PREF
+  codeLanguage: PYTHON
+  status: null
+  categories: []
+  castDecimalsDefault: true
+  logicQueryCacheTimeout: null
+  publishedQueryCacheTimeout: null
+  hexType: PROJECT
+  allowExecutionReordering: true
+  prerunApp: false
+  cachePublishedAppState: true
+  refreshStalePublishedApp: false
+  autoRerunApp: true
+projectAssets:
+  dataConnections: []
+  envVars: []
+  secrets: []
+sharedAssets:
+  secrets: []
+  vcsPackages: []
+  dataConnections:
+    - dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d # Big SQL Energy Snowflake (snowflake)
+  externalFileIntegrations: []
+cells:
+  - cellType: TEXT
+    cellId: d2fb41bf-838e-423f-a330-8ae788f652f2 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: h1
+          children:
+            - text: "⚡️Project 2: Subscription Cancelation Analysis"
+        - type: h2
+          children:
+            - text: "Case Study: Subscriptions Cancelation Analysis"
+        - type: p
+          children:
+            - text: ""
+        - type: paragraph
+          children:
+            - text: |
+                You’re having a lovely Monday morning getting a slow, quiet start to your day. It’s 8am, and you’re working from home today. You take your first sip of coffee, and it’s heavenly… UNTIL! Your CEO loops you into an email with the leadership team in a panic. She says that churn has been much higher than expected this year which means that many customers have been leaving and canceling their subscriptions instead of renewing. The company is having a retention crisis and needs to figure out how to improve retention before the next board meeting— or the board is not going to be happy! You brainstorm a few quick ideas on how you can make the product stickier and keep customers around longer, but you know you can’t just trust your gut! You have to look into the data first to see what insights you find. 
+        - type: paragraph
+          children:
+            - text: |
+                You reach out to your customer support team first and ask them to pull qualitative data and testimonies from customers who have left. This will be useful to understand on a deeper level why customers are leaving and what their overall tone is when they leave. Then you work with the product manager to understand what the cancelation workflow looks like. Users first have to go to their subscription settings, click cancel, and then enter the cancelation flow. The cancelation flow requires them to select one reason why they are canceling, and then there are 2 additional selections that are optional. Each selection is a dropdown with the same preset values— so you’re already thinking that this categorical data will be much easier to work with than text boxes that allow any text feedback to be typed into them. Qualitative text data can be the wild west due to the inconsistencies and inability to easily summarize insights. 
+        - type: paragraph
+          children:
+            - text: You know you already want to look into these selections in the cancelations table, but you’re also curious how many users actually select more than just the first required selection. Is it possible that this workflow could be really annoying and frustrating for users and they click random things to get through as quickly as possible? Or do we think users are providing accurate info and we can depend on most of these selections to accurately reflect the user’s reason for canceling? You have a lot to dig into and can’t wait to report your findings back to leadership!
+  - cellType: MARKDOWN
+    cellId: 5a4b3153-1e90-4234-bf59-5e209f7c7f4d # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |+
+        <img src="/api/v1/file/16309c15-c12c-4535-90bd-a9cd0fd3f3e9" width="900"  />
+
+  - cellType: SQL
+    cellId: f048e113-5b10-42ab-abe7-a9d6c6435bfe # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        SELECT
+            cancelation_reason1,
+            COUNT(*) AS num_instances,
+            COUNT(DISTINCT subscription_id) AS num_subs
+        FROM
+            public.cancelations
+        GROUP BY
+            1
+        ;
+      dataFrameCell: false
+      dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+      resultVariableName: dataframe
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig:
+        pageSize: 50
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: CANCELATION_REASON1
+            renameTo: null
+            size: 192
+            wrapText: null
+            displayFormat: null
+          - originalName: CANCELATION_REASON2
+            renameTo: null
+            size: 192
+            wrapText: null
+            displayFormat: null
+          - originalName: CANCELATION_REASON3
+            renameTo: null
+            size: 192
+            wrapText: null
+            displayFormat: null
+          - originalName: CANCEL_DATE
+            renameTo: null
+            size: 132
+            wrapText: null
+            displayFormat: null
+          - originalName: NUM_INSTANCES
+            renameTo: null
+            size: 149
+            wrapText: null
+            displayFormat: null
+          - originalName: NUM_SUBS
+            renameTo: null
+            size: 114
+            wrapText: null
+            displayFormat: null
+          - originalName: SUBSCRIPTION_ID
+            renameTo: null
+            size: 157
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 46
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: SQL
+    cellId: b6e4aba8-2940-42b5-b79a-f0c12d7bd920 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        WITH cancels AS(
+        SELECT
+            subscription_id,
+            CASE WHEN cancelation_reason1 IS NOT NULL THEN 1 ELSE 0 END AS has_reason1,
+            CASE WHEN cancelation_reason2 IS NOT NULL THEN 1 ELSE 0 END AS has_reason2,
+            CASE WHEN cancelation_reason3 IS NOT NULL THEN 1 ELSE 0 END AS has_reason3,
+            has_reason1 + has_reason2 + has_reason3 AS total_reasons,
+            has_reason2 + has_reason3 AS additional_reasons
+        FROM
+            public.cancelations
+        )
+
+        SELECT
+            AVG(total_reasons) AS avg_total_per_sub,
+            AVG(additional_reasons) AS avg_additional_per_sub
+        FROM
+            cancels
+      dataFrameCell: false
+      dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+      resultVariableName: dataframe_2
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig:
+        pageSize: 50
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: ADDITIONAL_REASONS
+            renameTo: null
+            size: 183
+            wrapText: null
+            displayFormat: null
+          - originalName: AVG_ADDITIONAL_PER_SUB
+            renameTo: null
+            size: 211
+            wrapText: null
+            displayFormat: null
+          - originalName: AVG_TOTAL_PER_SUB
+            renameTo: null
+            size: 173
+            wrapText: null
+            displayFormat: null
+          - originalName: HAS_REASON1
+            renameTo: null
+            size: 135
+            wrapText: null
+            displayFormat: null
+          - originalName: HAS_REASON2
+            renameTo: null
+            size: 135
+            wrapText: null
+            displayFormat: null
+          - originalName: HAS_REASON3
+            renameTo: null
+            size: 135
+            wrapText: null
+            displayFormat: null
+          - originalName: SUBSCRIPTION_ID
+            renameTo: null
+            size: 157
+            wrapText: null
+            displayFormat: null
+          - originalName: TOTAL_REASONS
+            renameTo: null
+            size: 147
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 46
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: BLOCK
+    cellId: 27f69c0a-1c21-46e9-8b71-069f60e211a1 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      blockConfig:
+        sqlCellId: 341490ff-a864-4452-8ac3-4e87deb867d2
+        chartCellId: dffcc08e-1223-48de-adc8-9b5abfbab223
+        activeTab: chart
+      cells:
+        - cellType: SQL
+          cellId: 341490ff-a864-4452-8ac3-4e87deb867d2
+          cellLabel: null
+          config:
+            source: |
+              WITH cancel_subs AS(
+              SELECT
+                  subscription_id,
+                  cancelation_reason1 as cancelation_reason
+              FROM
+                  public.cancelations
+
+              UNION
+
+              SELECT
+                  subscription_id,
+                  cancelation_reason2 as cancelation_reason
+              FROM
+                  public.cancelations
+
+              UNION
+
+              SELECT
+                  subscription_id,
+                  cancelation_reason3 as cancelation_reason
+              FROM
+                  public.cancelations
+              )
+
+              SELECT
+                 cancelation_reason,
+                 COUNT(subscription_id) AS num_subs
+              FROM
+                  cancel_subs
+              GROUP BY
+                  1
+              ;
+            dataFrameCell: false
+            dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+            resultVariableName: dataframe_3
+            useRichDisplay: true
+            sqlCellOutputType: PANDAS
+            useQueryMode: false
+            castDecimals: true
+            useNativeDates: true
+            outputFilteredResult: true
+            allowDuplicateColumns: false
+            tableDisplayConfig:
+              pageSize: 50
+              height: null
+              hideIcons: false
+              defaultColumnWidth: null
+              hideIndex: false
+              defaultSortColumn: null
+              defaultSortIndexColumn: null
+              defaultSortDirection: ASC
+              conditionalFormatting: null
+              calcs: null
+              filters: null
+              columnProperties:
+                - originalName: CANCELATION_REASON
+                  renameTo: null
+                  size: 185
+                  wrapText: null
+                  displayFormat: null
+                - originalName: SUBSCRIPTION_ID
+                  renameTo: null
+                  size: 157
+                  wrapText: null
+                  displayFormat: null
+                - originalName: row-index-0
+                  renameTo: null
+                  size: 46
+                  wrapText: null
+                  displayFormat: null
+              columnOrdering: null
+              customColumnOrdering: null
+              pinnedColumns: null
+              hiddenColumns: null
+              pinIndexColumns: false
+              showAggregations: false
+              columnAggregations: null
+        - cellType: CHARTV2
+          cellId: dffcc08e-1223-48de-adc8-9b5abfbab223
+          cellLabel: null
+          config:
+            height: null
+            chartSpec:
+              type: layered
+              layers:
+                - id: 5f6ad9c8-5176-4191-971b-225cdf6e2dca
+                  xAxis:
+                    type: string
+                    style:
+                      grid:
+                        style: solid
+                      ticks: {}
+                      labels: {}
+                    dataFrameColumn: CANCELATION_REASON
+                  series:
+                    - id: bcc556db-0df6-4821-9eda-5abb2adbc0f3
+                      type: bar
+                      axis:
+                        type: number
+                        style:
+                          grid:
+                            style: solid
+                          ticks: {}
+                          labels: {}
+                        aggregate: sum
+                      dataFrameColumns:
+                        - NUM_SUBS
+                      colorDataFrameColumn: CANCELATION_REASON
+                      colorOrder: ascending
+                      color:
+                        type: series
+                        colorsBySeriesValues: {}
+                      opacity:
+                        type: static
+                        value: 1
+                      tooltip:
+                        type: auto
+                      barWidth: 1
+                      orientation: vertical
+                      layout: stacked
+                  dataFrame: dataframe_3
+              settings:
+                legend:
+                  position: right
+                tooltip: true
+                selectionEnabled: false
+            chartSelection: {}
+            colorMappings:
+              "null": "#54A24B"
+              Expensive: "#F58518"
+              Not useful: "#E45756"
+              Bad customer service: "#4C78A8"
+              Went to a competitor: "#72B7B2"
+            resultVariable: chart_result
+            outputResult: false
+            displayType: CHART
+            displayTableConfig: null
+  - cellType: SQL
+    cellId: cfb4d37f-c393-4ede-a745-02085ac1fb71 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        CREATE OR REPLACE VIEW junk.all_cancelation_reasons_ElaineD AS
+        SELECT
+            subscription_id,
+            cancel_date,
+            cancelation_reason1 as cancelation_reason,
+            1 AS reason_number
+        FROM
+            public.cancelations
+
+        UNION
+
+        SELECT
+            subscription_id,
+            cancel_date,
+            cancelation_reason2 as cancelation_reason,
+            2 AS reason_number
+        FROM
+            public.cancelations
+
+        UNION
+
+        SELECT
+            subscription_id,
+            cancel_date,
+            cancelation_reason3 as cancelation_reason,
+            3 AS reason_number
+        FROM
+            public.cancelations
+      dataFrameCell: false
+      dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+      resultVariableName: dataframe_4
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig:
+        pageSize: 50
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: Updated rows
+            renameTo: null
+            size: 127
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 39
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: SQL
+    cellId: 34f37bf9-d8b7-40bf-ac92-be6ddeb28515 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: SELECT * FROM junk.all_cancelation_reasons_ElaineD LIMIT 1
+      dataFrameCell: false
+      dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+      resultVariableName: dataframe_5
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig:
+        pageSize: 50
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: CANCELATION_REASON
+            renameTo: null
+            size: 185
+            wrapText: null
+            displayFormat: null
+          - originalName: CANCEL_DATE
+            renameTo: null
+            size: 132
+            wrapText: null
+            displayFormat: null
+          - originalName: REASON_NUMBER
+            renameTo: null
+            size: 154
+            wrapText: null
+            displayFormat: null
+          - originalName: SUBSCRIPTION_ID
+            renameTo: null
+            size: 157
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 39
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: BLOCK
+    cellId: 73b18595-412d-4515-ae7a-5d6e7bff3b52 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      blockConfig:
+        sqlCellId: 6a85db8b-d8f5-44b9-ba6d-c4951a52c28e
+        chartCellId: 283eda7e-94d8-4126-8ac8-4498deeeef21
+        activeTab: chart
+      cells:
+        - cellType: SQL
+          cellId: 6a85db8b-d8f5-44b9-ba6d-c4951a52c28e
+          cellLabel: Cancelation by Reason Number
+          config:
+            source: |+
+              
+              SELECT
+                 cancelation_reason,
+                 reason_number,
+                 COUNT(subscription_id) AS num_subs
+              FROM
+                  junk.all_cancelation_reasons_ElaineD
+              GROUP BY
+                  1, 2
+              ;
+
+            dataFrameCell: false
+            dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+            resultVariableName: dataframe_6
+            useRichDisplay: true
+            sqlCellOutputType: PANDAS
+            useQueryMode: false
+            castDecimals: true
+            useNativeDates: true
+            outputFilteredResult: true
+            allowDuplicateColumns: false
+            tableDisplayConfig:
+              pageSize: 50
+              height: null
+              hideIcons: false
+              defaultColumnWidth: null
+              hideIndex: false
+              defaultSortColumn: null
+              defaultSortIndexColumn: null
+              defaultSortDirection: ASC
+              conditionalFormatting: null
+              calcs: null
+              filters: null
+              columnProperties:
+                - originalName: CANCELATION_REASON
+                  renameTo: null
+                  size: 185
+                  wrapText: null
+                  displayFormat: null
+                - originalName: NUM_SUBS
+                  renameTo: null
+                  size: 114
+                  wrapText: null
+                  displayFormat: null
+                - originalName: REASON_NUMBER
+                  renameTo: null
+                  size: 154
+                  wrapText: null
+                  displayFormat: null
+                - originalName: row-index-0
+                  renameTo: null
+                  size: 39
+                  wrapText: null
+                  displayFormat: null
+              columnOrdering: null
+              customColumnOrdering: null
+              pinnedColumns: null
+              hiddenColumns: null
+              pinIndexColumns: false
+              showAggregations: false
+              columnAggregations: null
+        - cellType: CHARTV2
+          cellId: 283eda7e-94d8-4126-8ac8-4498deeeef21
+          cellLabel: Cancelation by Reason Number
+          config:
+            height: null
+            chartSpec:
+              type: layered
+              facet:
+                facetHorizontal:
+                  type: number
+                  dataFrameColumn: REASON_NUMBER
+              layers:
+                - id: cd900aea-7e83-401e-8ff0-91a2a59b806c
+                  xAxis:
+                    type: string
+                    style:
+                      grid:
+                        style: solid
+                      ticks: {}
+                      labels: {}
+                    dataFrameColumn: CANCELATION_REASON
+                  series:
+                    - id: 4c0fd4b4-4fed-48f7-9db1-8c1ae9da82db
+                      type: bar
+                      axis:
+                        type: number
+                        style:
+                          grid:
+                            style: solid
+                          ticks: {}
+                          labels: {}
+                        aggregate: sum
+                      dataFrameColumns:
+                        - NUM_SUBS
+                      colorDataFrameColumn: CANCELATION_REASON
+                      colorOrder: ascending
+                      color:
+                        type: series
+                        colorsBySeriesValues: {}
+                      opacity:
+                        type: static
+                        value: 1
+                      tooltip:
+                        type: auto
+                      barWidth: 1
+                      orientation: vertical
+                      layout: stacked
+                  dataFrame: dataframe_6
+              settings:
+                legend:
+                  position: right
+                tooltip: true
+                selectionEnabled: false
+            chartSelection: {}
+            colorMappings:
+              "null": "#54A24B"
+              Expensive: "#F58518"
+              Not useful: "#E45756"
+              Bad customer service: "#4C78A8"
+              Went to a competitor: "#72B7B2"
+            resultVariable: chart_result
+            outputResult: false
+            displayType: CHART
+            displayTableConfig: null
+  - cellType: BLOCK
+    cellId: ef9698e7-051c-4886-99b2-ecefee3a362b # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      blockConfig:
+        sqlCellId: 06dc7478-9fab-480e-bb19-46f98b1c9e58
+        chartCellId: 35114a39-63d3-4506-9b1d-3f2616f8710d
+        activeTab: chart
+      cells:
+        - cellType: SQL
+          cellId: 06dc7478-9fab-480e-bb19-46f98b1c9e58
+          cellLabel: null
+          config:
+            source: |+
+              WITH yearly AS(
+              SELECT
+                  DATE_TRUNC('year', cancel_date::date) AS cancel_year,
+                  cancelation_reason,
+                  COUNT(*) AS num_reason
+              FROM
+                  junk.all_cancelation_reasons_ElaineD
+              GROUP BY
+                  1, 2
+              )
+
+              SELECT
+                  cancel_year,
+                  cancelation_reason,
+                  num_reason,
+                  SUM(num_reason) OVER(PARTITION BY cancel_year) AS year_total,
+                  num_reason * 100 / year_total AS perc_reason_annual
+              FROM
+                  yearly
+              ;
+
+            dataFrameCell: false
+            dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+            resultVariableName: dataframe_7
+            useRichDisplay: true
+            sqlCellOutputType: PANDAS
+            useQueryMode: false
+            castDecimals: true
+            useNativeDates: true
+            outputFilteredResult: true
+            allowDuplicateColumns: false
+            tableDisplayConfig:
+              pageSize: 50
+              height: null
+              hideIcons: false
+              defaultColumnWidth: null
+              hideIndex: false
+              defaultSortColumn: null
+              defaultSortIndexColumn: null
+              defaultSortDirection: ASC
+              conditionalFormatting: null
+              calcs: null
+              filters: null
+              columnProperties:
+                - originalName: CANCELATION_REASON
+                  renameTo: null
+                  size: 185
+                  wrapText: null
+                  displayFormat: null
+                - originalName: CANCEL_YEAR
+                  renameTo: null
+                  size: 132
+                  wrapText: null
+                  displayFormat: null
+                - originalName: NUM_REASON
+                  renameTo: null
+                  size: 131
+                  wrapText: null
+                  displayFormat: null
+                - originalName: row-index-0
+                  renameTo: null
+                  size: 46
+                  wrapText: null
+                  displayFormat: null
+              columnOrdering: null
+              customColumnOrdering: null
+              pinnedColumns: null
+              hiddenColumns: null
+              pinIndexColumns: false
+              showAggregations: false
+              columnAggregations: null
+        - cellType: CHARTV2
+          cellId: 35114a39-63d3-4506-9b1d-3f2616f8710d
+          cellLabel: null
+          config:
+            height: null
+            chartSpec:
+              type: layered
+              layers:
+                - id: b4b39e9f-d8f6-411b-8050-f4e17745f6e3
+                  xAxis:
+                    type: datetime
+                    style:
+                      grid:
+                        style: solid
+                      ticks: {}
+                      labels: {}
+                    dataFrameColumn: CANCEL_YEAR
+                  series:
+                    - id: 62ad4665-3e68-428b-a8ce-f6b105d56757
+                      type: line
+                      axis:
+                        type: number
+                        style:
+                          grid:
+                            style: solid
+                          ticks: {}
+                          labels: {}
+                        aggregate: sum
+                      dataFrameColumns:
+                        - PERC_REASON_ANNUAL
+                      colorDataFrameColumn: CANCELATION_REASON
+                      colorOrder: ascending
+                      color:
+                        type: series
+                        colorsBySeriesValues: {}
+                      opacity:
+                        type: static
+                        value: 1
+                      tooltip:
+                        type: auto
+                      point: false
+                      stroke: solid
+                  dataFrame: dataframe_7
+              settings:
+                legend:
+                  position: right
+                tooltip: true
+                selectionEnabled: false
+            chartSelection: {}
+            colorMappings:
+              "null": "#54A24B"
+              Expensive: "#F58518"
+              Not useful: "#E45756"
+              Bad customer service: "#4C78A8"
+              Went to a competitor: "#72B7B2"
+            resultVariable: chart_result
+            outputResult: false
+            displayType: CHART
+            displayTableConfig: null
+  - cellType: SQL
+    cellId: a17d7214-8b25-4ffe-b278-1ba4f3302d7e # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: ""
+      dataFrameCell: false
+      dataConnectionId: 34b92293-aaf9-485d-acf7-db69412e953d
+      resultVariableName: dataframe_8
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: true
+      allowDuplicateColumns: false
+      tableDisplayConfig:
+        pageSize: 50
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties: []
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+appLayout:
+  visibleMetadataFields:
+    - NAME
+    - DESCRIPTION
+    - AUTHOR
+    - LAST_EDITED
+    - LAST_RUN
+    - CATEGORIES
+    - STATUS
+    - TABLE_OF_CONTENTS
+  fullWidth: false
+  tabs:
+    - name: Tab 1
+      rows:
+        - columns:
+            - start: 0
+              end: 120
+              elements:
+                - showSource: false
+                  hideOutput: false
+                  type: CELL
+                  cellId: d2fb41bf-838e-423f-a330-8ae788f652f2
+                  sharedFilterId: null
+                  height: null
+                  showLabel: true
+        - columns:
+            - start: 0
+              end: 120
+              elements:
+                - showSource: false
+                  hideOutput: false
+                  type: CELL
+                  cellId: 5a4b3153-1e90-4234-bf59-5e209f7c7f4d
+                  sharedFilterId: null
+                  height: null
+                  showLabel: true
+        - columns:
+            - start: 0
+              end: 120
+              elements:
+                - showSource: false
+                  hideOutput: false
+                  type: CELL
+                  cellId: 341490ff-a864-4452-8ac3-4e87deb867d2
+                  sharedFilterId: null
+                  height: null
+                  showLabel: true
+        - columns:
+            - start: 0
+              end: 120
+              elements:
+                - showSource: false
+                  hideOutput: false
+                  type: CELL
+                  cellId: 6a85db8b-d8f5-44b9-ba6d-c4951a52c28e
+                  sharedFilterId: null
+                  height: null
+                  showLabel: true
+        - columns:
+            - start: 0
+              end: 120
+              elements:
+                - showSource: false
+                  hideOutput: false
+                  type: CELL
+                  cellId: 06dc7478-9fab-480e-bb19-46f98b1c9e58
+                  sharedFilterId: null
+                  height: null
+                  showLabel: true
+sharedFilters: []
